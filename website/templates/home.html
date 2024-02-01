@@ -1,0 +1,79 @@
+{% extends 'base.html' %} {% block content %} {% if user.is_authenticated %}
+
+<p>
+  <input class="form-control shadow" style="width: 500px" oninput="w3.filterHTML('#id01', '.item', this.value)" class="w3-input" placeholder="Search ..." />
+</p>
+
+<table id="id01" class="table table-striped table-hover table-bordered shadow">
+  <thead class="table-dark">
+    <tr>
+      <th scope="col" style="width: 50px" onclick="w3.sortHTML('#id01', '.item', 'td:nth-child(1)')">
+        ID
+        <i class="fa fa-sort" style="font-size: 13px; float: right; margin-top: 6px"></i>
+      </th>
+      <th scope="col" onclick="w3.sortHTML('#id01', '.item', 'td:nth-child(2)')">
+        Name
+        <i class="fa fa-sort" style="font-size: 13px; float: right; margin-top: 6px"></i>
+      </th>
+      <th scope="col" onclick="w3.sortHTML('#id01', '.item', 'td:nth-child(3)')">
+        Email <i class="fa fa-sort" style="font-size: 13px; float: right; margin-top: 6px"></i>
+      </th>
+      <th scope="col" onclick="w3.sortHTML('#id01', '.item', 'td:nth-child(4)')">
+        Phone <i class="fa fa-sort" style="font-size: 13px; float: right; margin-top: 6px"></i>
+      </th>
+      <th scope="col" onclick="w3.sortHTML('#id01', '.item', 'td:nth-child(5)')">
+        Address <i class="fa fa-sort" style="font-size: 13px; float: right; margin-top: 6px"></i>
+      </th>
+      <th scope="col" onclick="w3.sortHTML('#id01', '.item', 'td:nth-child(6)')">
+        City <i class="fa fa-sort" style="font-size: 13px; float: right; margin-top: 6px"></i>
+      </th>
+      <th scope="col" onclick="w3.sortHTML('#id01', '.item', 'td:nth-child(7)')">
+        State <i class="fa fa-sort" style="font-size: 13px; float: right; margin-top: 6px"></i>
+      </th>
+      <th scope="col" onclick="w3.sortHTML('#id01', '.item', 'td:nth-child(8)')">
+        Zipcode <i class="fa fa-sort" style="font-size: 13px; float: right; margin-top: 6px"></i>
+      </th>
+      <th scope="col" onclick="w3.sortHTML('#id01', '.item', 'td:nth-child(9)')">
+        Created At <i class="fa fa-sort" style="font-size: 13px; float: right; margin-top: 6px"></i>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    {% if records %} {% for record in records %}
+    <tr class="item">
+      <td style="text-align: center"><a href="{% url 'record' record.id %}">{{ record.id }}</a></td>
+      <td>{{ record.first_name }} {{ record.last_name }}</td>
+      <td>{{ record.email }}</td>
+      <td>{{ record.phone }}</td>
+      <td>{{ record.address }}</td>
+      <td>{{ record.city }}</td>
+      <td>{{ record.state }}</td>
+      <td>{{ record.zipcode }}</td>
+      <td>{{ record.created_at }}</td>
+    </tr>
+    {% endfor %} {% endif %}
+  </tbody>
+</table>
+
+{% else %}
+
+<div class="col-md-6 offset-md-3">
+  <h1>Login</h1>
+  <br />
+
+  <form method="POST" action="{% url 'home' %}">
+    {% csrf_token %}
+
+    <div class="mb-3">
+      <input type="text" class="form-control" name="username" , placeholder="Username" required />
+    </div>
+    <br />
+    <div class="mb-3">
+      <input type="password" class="form-control" name="password" , placeholder="Password" required />
+    </div>
+    <br />
+    <button type="submit" class="btn btn-secondary">Login</button>
+  </form>
+
+  {% endif %} {% endblock %}
+</div>
